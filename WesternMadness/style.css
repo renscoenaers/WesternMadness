@@ -1,0 +1,93 @@
+body {
+    background-color:crimson;
+    font-family: sans-serif;
+}
+
+#container{
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    min-width: 50em;
+    min-height: 30em;
+    margin-left: 22.5%;
+    margin-right: 25%;
+    margin-top: 5%;
+    overflow: hidden;
+    background: grey;
+    border: black;
+    border-style:solid;
+}
+
+.background{
+    position: absolute;
+    height: 100%;
+    width: 200%;
+    bottom: auto;
+    overflow: scroll;
+}
+#background_1{
+    left: 0px;
+    width: 100%;
+}
+#background_2{
+    left: 0px;
+}
+#background_3{
+    left: 0px;
+}
+#background_4{
+    left: 0px;
+}
+#background_5{
+    left: 0px;
+}
+
+.cowboy{
+    position: absolute;
+    border: none;
+    width: auto;
+    height: auto;
+    bottom: 0;
+}
+#cowboy{
+    left: 5em;
+}
+
+.badguy{
+    position: absolute;
+    border: none;
+    width: auto;
+    height: auto;
+    bottom: 0;
+}
+
+#badguy1{
+    left: 0;
+}
+#badguy2{
+    left: 0;
+}
+#badguy3{
+    left: 0;
+}
+#badguy4{
+    left: 0;
+}
+
+.small_text{
+    font-size: 15px;
+}
+#score_div{
+    position: absolute;
+    margin-top: 11%;
+    margin-left: 2.5%;
+    font-size: 35px;
+    background-color: white;
+    color: #454545;
+    box-shadow: 4px 4px 0px 1px #606060;
+}
+#help{
+	text-align: center;
+}

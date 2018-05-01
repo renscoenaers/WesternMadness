@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western Game</title>
+
+    <link href="style.css" rel="stylesheet"> </head>
+
+<body>
+    <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
+    <div id="help">
+        <p>Controls: Right and Left arrow keys to move, spacebar to jump</p>
+    </div>
+    <div id="score_div">
+        Score: <span id="score">0</span>
+    </div>
+    <div id="container">
+
+        <img src="images/bg-1.png" id="background_1" class="background">
+        <img src="images/bg-2.png" id="background_2" class="background">
+        <img src="images/bg-3.png" id="background_3" class="background">
+        <img src="images/bg-4.png" id="background_4" class="background">
+        <img src="images/bg-5.png" id="background_5" class="background">
+
+        <img src="images/joehorse3.png" id="cowboy" class="cowboy">
+        <img src="images/blue3.png" id="badguy1" class="badguy">
+        <img src="images/brown3.png" id="badguy2" class="badguy">
+        <img src="images/red3.png" id="badguy3" class="badguy">
+        <img src="images/green3.png" id="badguy4" class="badguy">
+    </div>
+
+    <script>
+        Animate("cowboy", "images/joehorse2.png", "images/joehorse3.png", "images/joehorse2.png", "images/joehorse3.png");
+        Animate("badguy1", "images/blue2.png", "images/blue3.png", "images/blue4.png", "images/blue5.png");
+        Animate("badguy2", "images/brown3.png", "images/brown4.png", "images/brown5.png", "images/brown2.png");
+        Animate("badguy3", "images/red4.png", "images/red5.png", "images/red2.png", "images/red3.png");
+        Animate("badguy4", "images/green5.png", "images/green2.png", "images/green3.png", "images/green4.png");
+
+        function Animate(character, sprite1, sprite2, sprite3, sprite4) {
+            var character = document.getElementById(character);
+            var currentPos = 0;
+            var sprites = [sprite1, sprite2, sprite3, sprite4]
+
+            function nextSprite() {
+                if (++currentPos >= sprites.length) currentPos = 0;
+                character.src = sprites[currentPos];
+            }
+
+            setInterval(nextSprite, 220);
+        }
+
+    </script>
+
+
+</body>
+
+</html>
