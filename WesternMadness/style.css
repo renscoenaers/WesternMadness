@@ -4,20 +4,16 @@ body {
 }
 
 #container{
-    display: block;
+    margin: auto;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
     width: 50%;
     min-width: 50em;
     min-height: 30em;
-    margin-left: 22.5%;
-    margin-right: 25%;
     margin-top: 5%;
     overflow: hidden;
     background: grey;
     border: black;
-    border-style:solid;
+    border-style: solid;
 }
 
 .background{
@@ -46,7 +42,6 @@ body {
 
 .cowboy{
     position: absolute;
-    border: none;
     width: auto;
     height: auto;
     bottom: 0;
@@ -57,7 +52,6 @@ body {
 
 .badguy{
     position: absolute;
-    border: none;
     width: auto;
     height: auto;
     bottom: 0;
@@ -76,18 +70,32 @@ body {
     left: 0;
 }
 
+.woodenbox {
+    position: absolute;
+    width: 5em;
+    height: 5em;
+    bottom: 0;
+}
+
+#woodenbox1{
+    left: 50;
+}
+
 .small_text{
     font-size: 15px;
 }
 #score_div{
-    position: absolute;
-    margin-top: 11%;
-    margin-left: 2.5%;
+    position: fixed;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    width: 13%;
     font-size: 35px;
     background-color: white;
-    color: #454545;
+    color: black;
     box-shadow: 4px 4px 0px 1px #606060;
 }
 #help{
 	text-align: center;
+    color: white;
+    margin-top: 2%;
 }
