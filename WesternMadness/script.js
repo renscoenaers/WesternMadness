@@ -93,7 +93,7 @@ $(function () {
         }
     }
 
-    function jump() {
+    function jump() { //dubbeljump: if in air and pressed -> nog eens springen, anders rest van de code.
         if (in_air === false && game_over === false && parseInt(cowboy.css('bottom')) >= 0) {
             cowboy.css('bottom', parseInt(cowboy.css('bottom')) + jump_height);
             in_air = true;
@@ -202,6 +202,10 @@ $(function () {
 
         setInterval(nextSprite, 200);
     } */
+    
+    restart_btn.click(function() {
+        location.reload();
+    });
 
     function background_left(background, indiv_speed) {
         var background_current_left = parseInt(background.css('left'));
