@@ -2,12 +2,12 @@ $(function () {
 
     'use strict';
 
-    //saving dom objects to variables
 
     var anim_id;
 
-
     var cowboy = $('#cowboy');
+    var woodenbox = $('#woodenbox');
+    var woodenbox2 = $('#woodenbox2');
     var badguy1 = $('#badguy1');
     var badguy2 = $('#badguy2');
     var badguy3 = $('#badguy3');
@@ -16,32 +16,34 @@ $(function () {
     var background_3 = $('#background_3');
     var background_4 = $('#background_4');
     var background_5 = $('#background_5');
+    var restart_div = $('#restart_div');
+    var restart_btn = $('#restart');
     var score = $('#score');
 
-    //saving some initial setup
     var container = $('#container'),
         container_left = parseInt(container.css('left')),
         container_width = parseInt(container.width()),
         container_height = parseInt(container.height()),
         cowboy_width = parseInt(cowboy.width()),
         cowboy_height = parseInt(cowboy.height()),
-        badguy_width = parseInt(badguy1.width());
+        badguy_width = parseInt(badguy1.width()),
+        woodenbox_width = parseInt(woodenbox.width());
 
-    //some other declarations
     var game_over = false;
 
     var score_counter = 1;
-    var jump_height = 50;
+    var jump_height = 100;
     var speed = 3;
-    var background_speed = 1;
+    var bad_speed = 12;
+    var background_speed = 2;
+    var box_speed = 10;
+    var jump_duration = 600;
 
     var move_right = false;
     var move_left = false;
     var move_jump = false;
     var in_air = false;
 
-    var place_badguy_left = parseInt(Math.random() * (container_width + badguy_width));
-    
     badguy1.css('left', parseInt(Math.random() * (container_width + badguy_width)));
     badguy2.css('left', parseInt(Math.random() * (container_width + badguy_width)));
     badguy3.css('left', parseInt(Math.random() * (container_width + badguy_width)));
@@ -95,46 +97,46 @@ $(function () {
         if (in_air === false && game_over === false && parseInt(cowboy.css('bottom')) >= 0) {
             cowboy.css('bottom', parseInt(cowboy.css('bottom')) + jump_height);
             in_air = true;
-             setTimeout(fall, 400);
+            setTimeout(fall, jump_duration);
             move_jump = requestAnimationFrame(jump);
         }
     }
 
     /* Nog niet functionele code
     
-    function rise_fall() {
-        if (in_air === false && game_over === false && parseInt(cowboy.css('bottom')) >= 0) {
-            var i;
-            for (i = 0; i < jump_height; i + 10) {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 10);
+            function rise_fall() {
+                if (in_air === false && game_over === false && parseInt(cowboy.css('bottom')) >= 0) {
+                    var i;
+                    for (i = 0; i < jump_height; i + 10) {
+                        cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 10);
+                    }
+
+                    for (i = jump_height; i > 0; i - 10) {
+                        cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 10);
+                    }
+                    var counter = 0;
+                    var height = 30;
+                    rise(counter, height);
+                    setTimeout(falldown(counter, height), 300);
+                    move_jump = requestAnimationFrame(rise_fall);
+                }
+            }
+    
+            function rise(counter, height){
+                while (counter <= height) {
+                        counter + 10;
+                        cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 10);
+                    }
+            }
+    
+            function falldown(counter, height){
+                while (counter >= height) {
+                        counter - 10;
+                        cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 10);
+                    }
             }
 
-            for (i = jump_height; i > 0; i - 10) {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 10);
-            }
-            var counter = 0;
-            var height = 30;
-            rise(counter, height);
-            setTimeout(falldown(counter, height), 300);
-            move_jump = requestAnimationFrame(rise_fall);
-        }
-    }
-    
-    function rise(counter, height){
-        while (counter <= height) {
-                counter + 10;
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 10);
-            }
-    }
-    
-    function falldown(counter, height){
-        while (counter >= height) {
-                counter - 10;
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 10);
-            }
-    }
-
-    */
+            */
 
 
     function fall() {
@@ -149,6 +151,11 @@ $(function () {
 
     function repeat() {
 
+        if (collision(cowboy, woodenbox) || collision(cowboy, woodenbox2)) {
+            stop_the_game();
+            return;
+        }
+
         score_counter++;
         //animatie_cowboy();
 
@@ -158,18 +165,27 @@ $(function () {
         if (score_counter % 500 == 0) {
             speed++;
             background_speed += 0.1;
+            box_speed += 0.1;
         }
 
         badguy_left(badguy1);
         badguy_left(badguy2);
         badguy_left(badguy3);
         badguy_left(badguy4);
+        box_left(woodenbox);
+        setTimeout(box_left(woodenbox2), 400);
         background_left(background_2, 2);
         background_left(background_3, 3);
         background_left(background_4, 4);
         background_left(background_5, 5);
 
         anim_id = requestAnimationFrame(repeat);
+    }
+
+    function stop_the_game() {
+        game_over = true;
+        restart_div.slideDown();
+        restart_btn.focus();
     }
 
     /*Animatie Cowboy
@@ -198,7 +214,7 @@ $(function () {
     }
 
     //parseInt(Math.random() * (container_width + badguy_width))
-    
+
     //Beweging badguys
     function badguy_left(badguy) {
         var badguy_current_left = parseInt(badguy.css('left'));
@@ -208,7 +224,18 @@ $(function () {
             var badguy_left = parseInt(Math.random() * (distance));
             badguy.css('left', badguy_left);
         }
-        badguy.css('left', badguy_current_left - speed);
+        badguy.css('left', badguy_current_left - bad_speed);
+    }
+
+    function box_left(box) {
+        var box_current_left = parseInt(box.css('left'));
+        var distance = container_width + woodenbox_width;
+        if (box_current_left < -woodenbox_width) {
+            box_current_left = parseInt((Math.random() * (distance)) + distance);
+            var box_left = parseInt(Math.random() * (distance));
+            box.css('left', box_left);
+        }
+        box.css('left', box_current_left - box_speed);
     }
 
     /*Animatie mannetjes
@@ -224,11 +251,26 @@ $(function () {
 
             setInterval(nextSprite, 220);
         } */
+    
+    function collision($div1, $div2) {
+        var l1 = $div1.offset().left; //left
+        var y1 = $div1.offset().top; //top
+        var h1 = $div1.outerHeight(true);
+        var w1 = $div1.outerWidth(true);
+        var b1 = y1 + h1;
+        var r1 = l1 + w1; //right
+        var l2 = $div2.offset().left; //left
+        var y2 = $div2.offset().top; //top
+        var h2 = $div2.outerHeight(true);
+        var w2 = $div2.outerWidth(true);
+        var b2 = y2 + h2;
+        var r2 = l2 + w2; //right
 
-
+        if (b1 < y2 || y1 > b2 || r1 < l2 + 40 || l1 > r2 - 40) return false;
+        return true;
+    }
 
 });
-
 
 
 
