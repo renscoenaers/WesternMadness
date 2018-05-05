@@ -2,23 +2,23 @@ $(function () {
 
     'use strict';
 
-
+    //DECLARATIES
     var anim_id;
 
-    var cowboy = $('#cowboy');
-    var woodenbox = $('#woodenbox');
-    var woodenbox2 = $('#woodenbox2');
-    var badguy1 = $('#badguy1');
-    var badguy2 = $('#badguy2');
-    var badguy3 = $('#badguy3');
-    var badguy4 = $('#badguy4');
-    var background_2 = $('#background_2');
-    var background_3 = $('#background_3');
-    var background_4 = $('#background_4');
-    var background_5 = $('#background_5');
-    var restart_div = $('#restart_div');
-    var restart_btn = $('#restart');
-    var score = $('#score');
+    var cowboy = $('#cowboy'),
+        obstacle = $('#obstacle'),
+        obstacle2 = $('#obstacle2'),
+        npc1 = $('#npc1'),
+        npc2 = $('#npc2'),
+        npc3 = $('#npc3'),
+        npc4 = $('#npc4'),
+        background_2 = $('#background_2'),
+        background_3 = $('#background_3'),
+        background_4 = $('#background_4'),
+        background_5 = $('#background_5'),
+        restart_div = $('#restart_div'),
+        restart_btn = $('#restart'),
+        score = $('#score');
 
     var container = $('#container'),
         container_left = parseInt(container.css('left')),
@@ -26,34 +26,30 @@ $(function () {
         container_height = parseInt(container.height()),
         cowboy_width = parseInt(cowboy.width()),
         cowboy_height = parseInt(cowboy.height()),
-        badguy_width = parseInt(badguy1.width()),
-        woodenbox_width = parseInt(woodenbox.width());
+        npc_width = parseInt(npc1.width()),
+        obstacle_width = parseInt(obstacle.width());
 
-    var game_over = false;
+    var score_counter = 1,
+        jump_height = 100,
+        npc_speed = 12,
+        background_speed = 2,
+        obstacle_speed = 10,
+        jump_duration = 1000;
 
-    var score_counter = 1;
-    var jump_height = 100;
-    var speed = 3;
-    var bad_speed = 12;
-    var background_speed = 2;
-    var box_speed = 10;
-    var jump_duration = 1000;
-    var current_height = 0;
-    var yVelocity = 0;
-    var bottom = 0;
-    var move_right = false;
-    var move_left = false;
-    var move_jump = false;
-    var in_air = false;
-    var double_jump = false;
-    var jump_count = 0;
+    var move_right = false,
+        move_left = false,
+        move_jump = false,
+        in_air = false,
+        game_over = false;
 
-    badguy1.css('left', parseInt(Math.random() * (container_width + badguy_width)));
-    badguy2.css('left', parseInt(Math.random() * (container_width + badguy_width)));
-    badguy3.css('left', parseInt(Math.random() * (container_width + badguy_width)));
-    badguy4.css('left', parseInt(Math.random() * (container_width + badguy_width)));
+    //Spawnen van de NPC's
+    npc1.css('left', parseInt(Math.random() * (container_width + npc_width)));
+    npc2.css('left', parseInt(Math.random() * (container_width + npc_width)));
+    npc3.css('left', parseInt(Math.random() * (container_width + npc_width)));
+    npc4.css('left', parseInt(Math.random() * (container_width + npc_width)));
 
-    /* Move the cowboy */
+
+    //Cowboy Controller
     $(document).on('keydown', function (e) {
         if (game_over === false) {
             var key = e.keyCode;
@@ -98,7 +94,7 @@ $(function () {
         }
     }
 
-    function jump() { //dubbeljump: if in air and pressed -> nog eens springen, anders rest van de code.
+    function jump() {
 
         if (in_air == false) {
             in_air = true;
@@ -110,18 +106,6 @@ $(function () {
         }
 
     }
-
-
-    /*
-    function fall() {
-        cowboy.css('bottom', 0);
-        setTimeout(function () {
-            if (parseInt(cowboy.css('bottom')) == 0) {
-                jump_count = 0;
-            }
-        }, 750);
-    }
-    */
 
     function up() {
         var i;
@@ -143,25 +127,16 @@ $(function () {
         if (parseInt(cowboy.css('bottom')) == 0) {
             in_air = false;
         }
-        /*
-                var i;
-                for (i = jump_height; i > 0; i--) {
-                    setTimeout(function () {
-                        cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 1)
-                    }, jump_duration);
-                }
-                if (parseInt(cowboy.css('bottom')) == 0) {
-                    jump_count = 0;
-                    current_height = 0;
-                } */
     }
 
-    //Spellus en beweging achtergrond adhv snelheid spel
+
+    //Spellus die elke tick herhaalt wordt.
+
     anim_id = requestAnimationFrame(repeat);
 
     function repeat() {
 
-        if (collision(cowboy, woodenbox) || collision(cowboy, woodenbox2)) {
+        if (collision(cowboy, obstacle) || collision(cowboy, obstacle2)) {
             stop_the_game();
             return;
         }
@@ -173,15 +148,15 @@ $(function () {
         if (score_counter % 500 == 0) {
             speed++;
             background_speed += 0.1;
-            box_speed += 0.1;
+            obstacle_speed += 0.1;
         }
 
-        badguy_left(badguy1);
-        badguy_left(badguy2);
-        badguy_left(badguy3);
-        badguy_left(badguy4);
-        box_left(woodenbox);
-        setTimeout(box_left(woodenbox2), 400);
+        npc_left(npc1);
+        npc_left(npc2);
+        npc_left(npc3);
+        npc_left(npc4);
+        obstacle_left(obstacle);
+        setTimeout(obstacle_left(obstacle2), 400);
         background_left(background_2, 2);
         background_left(background_3, 3);
         background_left(background_4, 4);
@@ -190,16 +165,19 @@ $(function () {
         anim_id = requestAnimationFrame(repeat);
     }
 
+    //Einde van het spel
     function stop_the_game() {
         game_over = true;
         restart_div.slideDown();
         restart_btn.focus();
     }
 
+    //Herstart het spel
     restart_btn.click(function () {
         location.reload();
     });
 
+    //Het bewegen van de achtergronden met zelfgemaakt parallax-effect.
     function background_left(background, indiv_speed) {
         var background_current_left = parseInt(background.css('left'));
         var background_width = parseInt(background.css('width'))
@@ -210,29 +188,31 @@ $(function () {
         background.css('left', background_current_left - (background_speed * indiv_speed));
     }
 
-    //Beweging badguys
-    function badguy_left(badguy) {
-        var badguy_current_left = parseInt(badguy.css('left'));
-        var distance = container_width + badguy_width;
-        if (badguy_current_left < -badguy_width) {
-            badguy_current_left = parseInt((Math.random() * (distance / 2)) + distance);
-            var badguy_left = parseInt(Math.random() * (distance));
-            badguy.css('left', badguy_left);
+    //Bewegen van de NPC's
+    function npc_left(npc) {
+        var npc_current_left = parseInt(npc.css('left'));
+        var distance = container_width + npc_width;
+        if (npc_current_left < -npc_width) {
+            npc_current_left = parseInt((Math.random() * (distance / 2)) + distance);
+            var npc_left = parseInt(Math.random() * (distance));
+            npc.css('left', npc_left);
         }
-        badguy.css('left', badguy_current_left - bad_speed);
+        npc.css('left', npc_current_left - npc_speed);
     }
 
-    function box_left(box) {
-        var box_current_left = parseInt(box.css('left'));
-        var distance = container_width + woodenbox_width;
-        if (box_current_left < -woodenbox_width) {
-            box_current_left = parseInt((Math.random() * (distance)) + distance);
-            var box_left = parseInt(Math.random() * (distance));
-            box.css('left', box_left);
+    //Bewegen van dee obstakels
+    function obstacle_left(obstacle) {
+        var obstacle_current_left = parseInt(obstacle.css('left'));
+        var distance = container_width + obstacle_width;
+        if (obstacle_current_left < -obstacle_width) {
+            obstacle_current_left = parseInt((Math.random() * (distance)) + distance);
+            var obstacle_left = parseInt(Math.random() * (distance));
+            obstacle.css('left', obstacle_left);
         }
-        box.css('left', box_current_left - box_speed);
+        obstacle.css('left', obstacle_current_left - obstacle_speed);
     }
 
+    //Collision detection 
     function collision($div1, $div2) {
         var l1 = $div1.offset().left; //left
         var y1 = $div1.offset().top; //top

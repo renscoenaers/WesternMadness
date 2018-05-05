@@ -73,39 +73,39 @@ body {
     left: 5em;
 }
 
-.badguy{
+.npc{
     position: absolute;
     width: auto;
     height: auto;
     bottom: 0;
 }
 
-#badguy1{
+#npc1{
     left: 0;
 }
-#badguy2{
+#npc2{
     left: 0;
 }
-#badguy3{
+#npc3{
     left: 0;
 }
-#badguy4{
+#npc4{
     left: 0;
 }
 
-.woodenbox {
+.obstacle {
     position: absolute;
     width: 5em;
     height: 5em;
 }
 
-#woodenbox{
+#obstacle{
     left: -1;
     right: 0;
     bottom: 0;
 }
 
-#woodenbox2{
+#obstacle2{
     left: auto;
     right: 0em;
     bottom: 0;

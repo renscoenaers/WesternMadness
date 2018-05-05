@@ -24,14 +24,14 @@
         <img src="images/bg-5.png" id="background_5" class="background">
         
         <img src="images/joehorse3.png" id="cowboy" class="cowboy">
-        <img src="images/blue3.png" id="badguy1" class="badguy">
+        <img src="images/blue3.png" id="npc1" class="npc">
         
-        <img src="images/woodenBox.png" id="woodenbox" class="woodenbox">
-        <img src="images/woodenBox.png" id="woodenbox2" class="woodenbox">
+        <img src="images/woodenBox.png" id="obstacle" class="obstacle">
+        <img src="images/woodenBox.png" id="obstacle2" class="obstacle">
         
-        <img src="images/brown3.png" id="badguy2" class="badguy">
-        <img src="images/red3.png" id="badguy3" class="badguy">
-        <img src="images/green3.png" id="badguy4" class="badguy">
+        <img src="images/brown3.png" id="npc2" class="npc">
+        <img src="images/red3.png" id="npc3" class="npc">
+        <img src="images/green3.png" id="npc4" class="npc">
 
         <div id="restart_div">
             <button id="restart">
@@ -48,10 +48,10 @@
 
     <script>
         Animate("cowboy", "images/joehorse2.png", "images/joehorse3.png", "images/joehorse2.png", "images/joehorse3.png");
-        Animate("badguy1", "images/blue2.png", "images/blue3.png", "images/blue4.png", "images/blue5.png");
-        Animate("badguy2", "images/brown3.png", "images/brown4.png", "images/brown5.png", "images/brown2.png");
-        Animate("badguy3", "images/red4.png", "images/red5.png", "images/red2.png", "images/red3.png");
-        Animate("badguy4", "images/green5.png", "images/green2.png", "images/green3.png", "images/green4.png");
+        Animate("npc1", "images/blue2.png", "images/blue3.png", "images/blue4.png", "images/blue5.png");
+        Animate("npc2", "images/brown3.png", "images/brown4.png", "images/brown5.png", "images/brown2.png");
+        Animate("npc3", "images/red4.png", "images/red5.png", "images/red2.png", "images/red3.png");
+        Animate("npc4", "images/green5.png", "images/green2.png", "images/green3.png", "images/green4.png");
 
         function Animate(character, sprite1, sprite2, sprite3, sprite4) {
             var character = document.getElementById(character);
