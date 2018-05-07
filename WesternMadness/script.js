@@ -6,12 +6,14 @@ $(function () {
     var anim_id;
 
     var cowboy = $('#cowboy'),
-        obstacle = $('#obstacle'),
+        obstacle1 = $('#obstacle1'),
         obstacle2 = $('#obstacle2'),
+        obstacle3 = $('#obstacle3'),
         npc1 = $('#npc1'),
         npc2 = $('#npc2'),
         npc3 = $('#npc3'),
         npc4 = $('#npc4'),
+        background_1 = $('#background_1'),
         background_2 = $('#background_2'),
         background_3 = $('#background_3'),
         background_4 = $('#background_4'),
@@ -27,14 +29,14 @@ $(function () {
         cowboy_width = parseInt(cowboy.width()),
         cowboy_height = parseInt(cowboy.height()),
         npc_width = parseInt(npc1.width()),
-        obstacle_width = parseInt(obstacle.width());
+        obstacle_width = parseInt(obstacle1.width());
 
     var score_counter = 1,
-        jump_height = 100,
+        jump_height = 75,
         npc_speed = 12,
         background_speed = 2,
-        obstacle_speed = 10,
-        jump_duration = 1000;
+        obstacle_speed = 15,
+        jump_duration = 800;
 
     var move_right = false,
         move_left = false,
@@ -135,7 +137,7 @@ $(function () {
         var i;
         for (i = 0; i < jump_height; i++) {
             setTimeout(function () {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 1)
+                cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 2)
             }, 100);
         }
     }
@@ -144,9 +146,9 @@ $(function () {
         var i;
         for (i = height; i > 0; i--) {
             setTimeout(function () {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 1)
+                cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 2)
             }, time);
-            height--;
+            height --;
         }
         if (parseInt(cowboy.css('bottom')) == 0) {
             in_air = false;
@@ -160,7 +162,7 @@ $(function () {
 
     function repeat() {
 
-        if (collision(cowboy, obstacle) || collision(cowboy, obstacle2)) {
+        if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3)) {
             stop_the_game();
             return;
         }
@@ -178,12 +180,14 @@ $(function () {
         npc_left(npc2);
         npc_left(npc3);
         npc_left(npc4);
-        obstacle_left(obstacle);
+        obstacle_left(obstacle1);
         setTimeout(obstacle_left(obstacle2), 400);
-        background_left(background_2, 2);
-        background_left(background_3, 3);
-        background_left(background_4, 4);
-        background_left(background_5, 5);
+        setTimeout(obstacle_left(obstacle3), 1200);
+        background_left(background_1, 5);
+        background_left(background_2, 5);
+        background_left(background_3, 4);
+        background_left(background_4, 3);
+        background_left(background_5, 2);
 
         anim_id = requestAnimationFrame(repeat);
     }
@@ -216,7 +220,7 @@ $(function () {
         var npc_current_left = parseInt(npc.css('left'));
         var distance = container_width + npc_width;
         if (npc_current_left < -npc_width) {
-            npc_current_left = parseInt((Math.random() * (distance / 2)) + distance);
+            npc_current_left = parseInt(Math.random() * (distance / (Math.random() * 3)) + distance);
             var npc_left = parseInt(Math.random() * (distance));
             npc.css('left', npc_left);
         }

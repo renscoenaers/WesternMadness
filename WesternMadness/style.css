@@ -43,9 +43,17 @@ body {
     overflow: scroll;
 }
 
-#background_1 {
+#sun {
     left: 0px;
     width: 100%;
+}
+
+#background {
+    left: 0px;
+}
+
+#background_1 {
+    left: 0px;
 }
 
 #background_2 {
@@ -63,7 +71,6 @@ body {
 #background_5 {
     left: 0px;
 }
-
 #restart_div {
     position: absolute;
     height: auto;
@@ -135,11 +142,11 @@ body {
 
 .obstacle {
     position: absolute;
-    width: 5em;
-    height: 5em;
+    width: 75px;
+    height: 100px;
 }
 
-#obstacle {
+#obstacle1 {
     left: -1;
     right: 0;
     bottom: 0;
@@ -151,6 +158,11 @@ body {
     bottom: 0;
 }
 
+#obstacle3 {
+    left: auto;
+    right: -50em;
+    bottom: 0;
+}
 .small_text {
     font-size: 15px;
 }
