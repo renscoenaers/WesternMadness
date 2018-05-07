@@ -147,20 +147,20 @@ body {
 }
 
 #obstacle1 {
-    left: -1;
+    left: -5;
     right: 0;
     bottom: 0;
 }
 
 #obstacle2 {
-    left: auto;
-    right: 0em;
+    left: -5;
+    right: 0;
     bottom: 0;
 }
 
 #obstacle3 {
-    left: auto;
-    right: -50em;
+    left: -5;
+    right: 0;
     bottom: 0;
 }
 .small_text {

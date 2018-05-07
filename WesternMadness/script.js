@@ -181,8 +181,8 @@ $(function () {
         npc_left(npc3);
         npc_left(npc4);
         obstacle_left(obstacle1);
-        setTimeout(obstacle_left(obstacle2), 400);
-        setTimeout(obstacle_left(obstacle3), 1200);
+        setTimeout(obstacle_left(obstacle2), 1000);
+        setTimeout(obstacle_left(obstacle3), 7000);
         background_left(background_1, 5);
         background_left(background_2, 5);
         background_left(background_3, 4);
