@@ -49,36 +49,60 @@ $(function () {
     npc4.css('left', parseInt(Math.random() * (container_width + npc_width)));
 
 
-    //Cowboy Controller
-    $(document).on('keydown', function (e) {
-        if (game_over === false) {
-            var key = e.keyCode;
-            if (key === 37 && move_left === false) {
-                move_left = requestAnimationFrame(left);
-            } else if (key === 39 && move_right === false) {
-                move_right = requestAnimationFrame(right);
-            } else if (key === 32 && move_jump === false) {
-                move_jump = requestAnimationFrame(jump);
-                move_jump = false;
-            }
+    //Detect if on mobile //not my code
+    function detectmob() {
+        if (navigator.userAgent.match(/Android/i) ||
+            navigator.userAgent.match(/webOS/i) ||
+            navigator.userAgent.match(/iPhone/i) ||
+            navigator.userAgent.match(/iPad/i) ||
+            navigator.userAgent.match(/iPod/i) ||
+            navigator.userAgent.match(/BlackBerry/i) ||
+            navigator.userAgent.match(/Windows Phone/i)
+        ) {
+            return true;
+        } else {
+            return false;
         }
-    });
+    }
+    var mobile = detectmob();
 
-    $(document).on('keyup', function (e) {
-        if (game_over === false) {
-            var key = e.keyCode;
-            if (key === 37) {
-                cancelAnimationFrame(move_left);
-                move_left = false;
-            } else if (key === 39) {
-                cancelAnimationFrame(move_right);
-                move_right = false;
-            } else if (key === 32) {
-                cancelAnimationFrame(move_jump);
-                move_jump = false;
+    //Cowboy Controller
+    if (!mobile) {
+        $(document).on('keydown', function (e) {
+            if (game_over === false) {
+                var key = e.keyCode;
+                if (key === 37 && move_left === false) {
+                    move_left = requestAnimationFrame(left);
+                } else if (key === 39 && move_right === false) {
+                    move_right = requestAnimationFrame(right);
+                } else if (key === 32 && move_jump === false) {
+                    move_jump = requestAnimationFrame(jump);
+                    move_jump = false;
+                }
             }
-        }
-    });
+        });
+
+        $(document).on('keyup', function (e) {
+            if (game_over === false) {
+                var key = e.keyCode;
+                if (key === 37) {
+                    cancelAnimationFrame(move_left);
+                    move_left = false;
+                } else if (key === 39) {
+                    cancelAnimationFrame(move_right);
+                    move_right = false;
+                } else if (key === 32) {
+                    cancelAnimationFrame(move_jump);
+                    move_jump = false;
+                }
+            }
+        });
+    } else {
+        document.getElementById("leftBtn").addEventListener("touchstart", left);
+        document.getElementById("rightBtn").addEventListener("touchstart", right);
+        document.getElementById("jumpBtn").addEventListener("touchstart", jump);
+    }
+
 
     function left() {
         if (game_over === false && parseInt(cowboy.css('left')) > 0) {
