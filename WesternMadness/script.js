@@ -146,7 +146,6 @@ $(function () {
             score.text(parseInt(score.text()) + 1);
         }
         if (score_counter % 500 == 0) {
-            speed++;
             background_speed += 0.1;
             obstacle_speed += 0.1;
         }
