@@ -107,9 +107,9 @@ $(function () {
         });
 
     } else {
-        document.getElementById("leftBtn").addEventListener("touchstart", left);
-        document.getElementById("rightBtn").addEventListener("touchstart", right);
-        document.getElementById("jumpBtn").addEventListener("touchstart", jump);
+        document.getElementById("container").addEventListener("touchstart", jump);
+        //document.getElementById("rightBtn").addEventListener("touchstart", right);
+        //document.getElementById("jumpBtn").addEventListener("touchstart", jump);
     }
 
 
