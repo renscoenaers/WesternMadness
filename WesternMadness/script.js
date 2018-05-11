@@ -5,6 +5,12 @@ $(function () {
     //DECLARATIES
     var anim_id;
 
+    //Scores:
+    var current_score = 1;
+    var highscore = localStorage.getItem("highscore");
+
+
+
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
         obstacle2 = $('#obstacle2'),
@@ -33,7 +39,7 @@ $(function () {
 
     var score_counter = 1,
         jump_height = 75,
-        npc_speed = 12,
+        npc_speed = 17,
         background_speed = 2,
         obstacle_speed = 15,
         jump_duration = 800;
@@ -99,6 +105,7 @@ $(function () {
                 }
             }
         });
+
     } else {
         document.getElementById("leftBtn").addEventListener("touchstart", left);
         document.getElementById("rightBtn").addEventListener("touchstart", right);
@@ -125,10 +132,9 @@ $(function () {
         if (in_air == false) {
             in_air = true;
             up();
-            down(jump_height, jump_duration);
         } else if (in_air == true) {
-            up();
-            down(jump_height, jump_duration);
+            down(jump_height);
+            in_air = false;
         }
 
     }
@@ -142,19 +148,24 @@ $(function () {
         }
     }
 
-    function down(height, time) {
+    function down(height) {
         var i;
         for (i = height; i > 0; i--) {
-            setTimeout(function () {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 2)
-            }, time);
-            height --;
-        }
-        if (parseInt(cowboy.css('bottom')) == 0) {
-            in_air = false;
+            cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 2)
+            height--;
         }
     }
 
+    function setHighscore() {
+        if (highscore !== null) {
+            if (score > highscore) {
+                localStorage.setItem("highscore", score);
+            }
+        } else {
+            localStorage.setItem("highscore", score);
+        }
+        highscore = +localStorage.getItem("highscore")
+    }
 
     //Spellus die elke tick herhaalt wordt.
 
@@ -167,29 +178,50 @@ $(function () {
             return;
         }
         score_counter++;
+        current_score++;
+        setHighscore();
 
-        if (score_counter % 20 == 0) {
-            score.text(parseInt(score.text()) + 1);
-        }
-        if (score_counter % 500 == 0) {
-            background_speed += 0.1;
-            obstacle_speed += 0.1;
+        if (onGround()) {
+
+            if (score_counter % 10 == 0) {
+                score.text(parseInt(score.text()) + 1);
+            }
+            if (score_counter % 200 == 0) {
+                background_speed += 0.1;
+                obstacle_speed += 0.1;
+                npc_speed += 0.1;
+            }
         }
 
+        animate_npcs();
+        animate_bgs();
+        animate_obs();
+
+        anim_id = requestAnimationFrame(repeat);
+    }
+
+    //Animeer de obstakels
+    function animate_obs() {
+        obstacle_left(obstacle1);
+        setTimeout(obstacle_left(obstacle2), 1000);
+        setTimeout(obstacle_left(obstacle3), 7000);
+    }
+
+    //Animeer alle NPC's
+    function animate_npcs() {
         npc_left(npc1);
         npc_left(npc2);
         npc_left(npc3);
         npc_left(npc4);
-        obstacle_left(obstacle1);
-        setTimeout(obstacle_left(obstacle2), 1000);
-        setTimeout(obstacle_left(obstacle3), 7000);
-        background_left(background_1, 5);
-        background_left(background_2, 5);
-        background_left(background_3, 4);
-        background_left(background_4, 3);
-        background_left(background_5, 2);
+    }
 
-        anim_id = requestAnimationFrame(repeat);
+    //Animeer alle achtergronden
+    function animate_bgs() {
+        background_left(background_1, 5);
+        background_left(background_2, 4);
+        background_left(background_3, 3);
+        background_left(background_4, 2);
+        background_left(background_5, 1);
     }
 
     //Einde van het spel
@@ -207,7 +239,7 @@ $(function () {
     //Het bewegen van de achtergronden met zelfgemaakt parallax-effect.
     function background_left(background, indiv_speed) {
         var background_current_left = parseInt(background.css('left'));
-        var background_width = parseInt(background.css('width'))
+        var background_width = parseInt(background.css('width'));
         var background_half = background_width / 2;
         if (background_current_left < -background_half) {
             background_current_left = 0;
@@ -237,6 +269,13 @@ $(function () {
             obstacle.css('left', obstacle_left);
         }
         obstacle.css('left', obstacle_current_left - obstacle_speed);
+    }
+
+    //Checkt if on ground
+    function onGround() {
+        if (parseInt(cowboy.css('bottom')) == 0) {
+            return true;
+        } else return false;
     }
 
     //Collision detection 
