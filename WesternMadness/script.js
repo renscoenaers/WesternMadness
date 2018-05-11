@@ -26,7 +26,8 @@ $(function () {
         background_5 = $('#background_5'),
         restart_div = $('#restart_div'),
         restart_btn = $('#restart'),
-        score = $('#score');
+        score = $('#score'),
+        safezone = $('#safezone');
 
     var container = $('#container'),
         container_left = parseInt(container.css('left')),
@@ -42,13 +43,16 @@ $(function () {
         npc_speed = 17,
         background_speed = 2,
         obstacle_speed = 15,
-        jump_duration = 800;
+        jump_duration = 800,
+        counter_safezone = 0;
 
     var move_right = false,
         move_left = false,
         move_jump = false,
         in_air = false,
-        game_over = false;
+        game_over = false,
+        obs_visible = false;
+
 
     //Spawnen van de NPC's
     npc1.css('left', parseInt(Math.random() * (container_width + npc_width)));
@@ -113,7 +117,7 @@ $(function () {
     }
 
 
-    function left() {
+    /*function left() {
         if (game_over === false && parseInt(cowboy.css('left')) > 0) {
             cowboy.css('left', parseInt(cowboy.css('left')) - 5);
             move_left = requestAnimationFrame(left);
@@ -125,7 +129,7 @@ $(function () {
             cowboy.css('left', parseInt(cowboy.css('left')) + 5);
             move_right = requestAnimationFrame(right);
         }
-    }
+    }*/
 
     function jump() {
 
@@ -170,6 +174,7 @@ $(function () {
     //Spellus die elke tick herhaalt wordt.
 
     anim_id = requestAnimationFrame(repeat);
+    safeZone();
 
     function repeat() {
 
@@ -200,11 +205,42 @@ $(function () {
         anim_id = requestAnimationFrame(repeat);
     }
 
+
     //Animeer de obstakels
     function animate_obs() {
-        obstacle_left(obstacle1);
-        setTimeout(obstacle_left(obstacle2), 1000);
-        setTimeout(obstacle_left(obstacle3), 7000);
+        if (obs_visible === true) {
+            obstacle_left(obstacle1);
+            setTimeout(obstacle_left(obstacle2), 4000);
+            setTimeout(obstacle_left(obstacle3), 8000);
+        }
+    }
+
+    function safeZone() {
+        if (obs_visible === true) {
+            obstacle_left(obstacle1);
+            setTimeout(obstacle_left(obstacle2), 4000);
+            setTimeout(obstacle_left(obstacle3), 8000);
+        } else {
+            setTimeout(function () {
+                safezone.text('3');
+            }, 1000);
+            setTimeout(function () {
+                safezone.text('2');
+            }, 2000);
+            setTimeout(function () {
+                safezone.text('1');
+            }, 3000);
+            setTimeout(function () {
+                safezone.css('display', 'none');
+            }, 4000);
+            setTimeout(function () {
+                obs_visible = true;
+                obstacle1.css('display', 'inherit');
+                obstacle2.css('display', 'inherit');
+                obstacle3.css('display', 'inherit');
+
+            }, 4000);
+        }
     }
 
     //Animeer alle NPC's
