@@ -9,8 +9,6 @@ $(function () {
     var current_score = 1;
     var highscore = localStorage.getItem("highscore");
 
-
-
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
         obstacle2 = $('#obstacle2'),
@@ -39,7 +37,7 @@ $(function () {
         obstacle_width = parseInt(obstacle1.width());
 
     var score_counter = 1,
-        jump_height = 75,
+        jump_height = 100,
         npc_speed = 17,
         background_speed = 2,
         obstacle_speed = 15,
@@ -137,27 +135,18 @@ $(function () {
             in_air = true;
             up();
         } else if (in_air == true) {
-            down(jump_height);
+            down();
             in_air = false;
         }
 
     }
 
     function up() {
-        var i;
-        for (i = 0; i < jump_height; i++) {
-            setTimeout(function () {
-                cowboy.css('bottom', parseInt(cowboy.css('bottom')) + 2)
-            }, 100);
-        }
+        cowboy.css('bottom', parseInt(cowboy.css('bottom')) + jump_height);
     }
 
-    function down(height) {
-        var i;
-        for (i = height; i > 0; i--) {
-            cowboy.css('bottom', parseInt(cowboy.css('bottom')) - 2)
-            height--;
-        }
+    function down() {
+        cowboy.css('bottom', parseInt(cowboy.css('bottom')) - jump_height);
     }
 
     function setHighscore() {
