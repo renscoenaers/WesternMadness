@@ -29,13 +29,14 @@ $(function () {
     var container = $('#container'),
         container_width = parseInt(container.width()),
         npc_width = parseInt(npc1.width()),
+        cowboy_height = parseInt(cowboy.height()),
         obstacle_width = parseInt(obstacle1.width());
 
     var score_counter = 1,
-        jump_height = 100,
-        npc_speed = 17,
+        jump_height = (cowboy_height / 3 * 2),
+        npc_speed = 9,
         background_speed = 2,
-        obstacle_speed = 15,
+        obstacle_speed = 7,
         currentscore = 0;
     
     var best = JSON.parse(localStorage.getItem('highscore'));
@@ -129,7 +130,6 @@ $(function () {
     }
 
     //Spellus die elke tick herhaalt wordt.
-
     anim_id = requestAnimationFrame(repeat);
     safeZone();
 
@@ -148,10 +148,11 @@ $(function () {
                 score.text(parseInt(score.text()) + 1);
                 currentscore++;
             }
-            if (score_counter % 200 == 0) {
-                background_speed += 0.1;
-                obstacle_speed += 0.1;
-                npc_speed += 0.1;
+            if (score_counter % 100 == 0) {
+                background_speed += 0.5;
+                obstacle_speed += 0.5;
+                npc_speed += 0.5;
+                console.log("increase speed");
             }
         }
 
@@ -167,7 +168,6 @@ $(function () {
 
 
     function highscoreUpdate() {
-        console.log(best);
         
         if (currentscore > best) {
             localStorage.setItem('highscore', JSON.stringify(currentscore));
@@ -250,7 +250,7 @@ $(function () {
         if (background_current_left < -background_half) {
             background_current_left = 0;
         }
-        background.css('left', background_current_left - (background_speed * indiv_speed));
+        background.css('left', background_current_left - (background_speed * (indiv_speed / 2)));
     }
 
     //Bewegen van de NPC's
