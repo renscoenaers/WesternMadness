@@ -5,9 +5,7 @@ $(function () {
     //DECLARATIES
     var anim_id;
 
-    //Scores:
-    var current_score = 1;
-    var highscore = localStorage.getItem("highscore");
+    localStorage.setItem("highscore", JSON.stringify(0));
 
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
@@ -25,14 +23,11 @@ $(function () {
         restart_div = $('#restart_div'),
         restart_btn = $('#restart'),
         score = $('#score'),
+        highscoretxt = $('#highscoretxt'),
         safezone = $('#safezone');
 
     var container = $('#container'),
-        container_left = parseInt(container.css('left')),
         container_width = parseInt(container.width()),
-        container_height = parseInt(container.height()),
-        cowboy_width = parseInt(cowboy.width()),
-        cowboy_height = parseInt(cowboy.height()),
         npc_width = parseInt(npc1.width()),
         obstacle_width = parseInt(obstacle1.width());
 
@@ -41,8 +36,9 @@ $(function () {
         npc_speed = 17,
         background_speed = 2,
         obstacle_speed = 15,
-        jump_duration = 800,
-        counter_safezone = 0;
+        currentscore = 0;
+    
+    var best = JSON.parse(localStorage.getItem('highscore'));
 
     var move_right = false,
         move_left = false,
@@ -110,24 +106,7 @@ $(function () {
 
     } else {
         document.getElementById("container").addEventListener("touchstart", jump);
-        //document.getElementById("rightBtn").addEventListener("touchstart", right);
-        //document.getElementById("jumpBtn").addEventListener("touchstart", jump);
     }
-
-
-    /*function left() {
-        if (game_over === false && parseInt(cowboy.css('left')) > 0) {
-            cowboy.css('left', parseInt(cowboy.css('left')) - 5);
-            move_left = requestAnimationFrame(left);
-        }
-    }
-
-    function right() {
-        if (game_over === false && parseInt(cowboy.css('left')) < container_width - cowboy_width) {
-            cowboy.css('left', parseInt(cowboy.css('left')) + 5);
-            move_right = requestAnimationFrame(right);
-        }
-    }*/
 
     function jump() {
 
@@ -149,17 +128,6 @@ $(function () {
         cowboy.css('bottom', parseInt(cowboy.css('bottom')) - jump_height);
     }
 
-    function setHighscore() {
-        if (highscore !== null) {
-            if (score > highscore) {
-                localStorage.setItem("highscore", score);
-            }
-        } else {
-            localStorage.setItem("highscore", score);
-        }
-        highscore = +localStorage.getItem("highscore")
-    }
-
     //Spellus die elke tick herhaalt wordt.
 
     anim_id = requestAnimationFrame(repeat);
@@ -172,13 +140,13 @@ $(function () {
             return;
         }
         score_counter++;
-        current_score++;
-        setHighscore();
+
+        highscoreUpdate();
 
         if (onGround()) {
-
             if (score_counter % 10 == 0) {
                 score.text(parseInt(score.text()) + 1);
+                currentscore++;
             }
             if (score_counter % 200 == 0) {
                 background_speed += 0.1;
@@ -194,6 +162,19 @@ $(function () {
         anim_id = requestAnimationFrame(repeat);
     }
 
+    //Highscores;
+
+
+
+    function highscoreUpdate() {
+        console.log(best);
+        
+        if (currentscore > best) {
+            localStorage.setItem('highscore', JSON.stringify(currentscore));
+            best = currentscore;
+            highscoretxt.text(best);
+        }
+    }
 
     //Animeer de obstakels
     function animate_obs() {
