@@ -299,7 +299,7 @@ $(function () {
         var b2 = y2 + h2;
         var r2 = l2 + w2; //right
 
-        if (b1 < y2 || y1 > b2 || r1 < l2 + 40 || l1 > r2 - 40) return false;
+        if (b1 < y2 || y1 > b2 || r1 < l2 || l1 > r2) return false;
         return true;
     }
 
