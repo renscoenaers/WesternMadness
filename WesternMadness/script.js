@@ -143,7 +143,7 @@ $(function () {
 
         highscoreUpdate();
 
-        if (onGround()) {
+        if (onGround() && obs_visible) {
             if (score_counter % 10 == 0) {
                 score.text(parseInt(score.text()) + 1);
                 currentscore++;
