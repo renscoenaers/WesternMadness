@@ -6,8 +6,6 @@ $(function () {
     var anim_id;
 
 
-
-
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
         obstacle2 = $('#obstacle2'),
@@ -42,6 +40,9 @@ $(function () {
 
     var best = JSON.parse(localStorage.getItem('highscore'));
     localStorage.setItem("highscore", JSON.stringify(best));
+    
+    var newBest = 0;
+    
     var move_right = false,
         move_left = false,
         move_jump = false,
@@ -171,7 +172,7 @@ $(function () {
 
         if (currentscore > best) {
             localStorage.setItem('highscore', JSON.stringify(currentscore));
-            currentscore = best;
+            best = currentscore;
             highscoretxt.text(best);
             console.log(best);
         } else {
