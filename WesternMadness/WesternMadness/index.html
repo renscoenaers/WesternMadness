@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Western Game</title>
+
+    <link href="style.css" rel="stylesheet"> </head>
+
+<body>
+    <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
+    <!---<div id="help">
+        <p>Controls: Right and Left arrow keys to move, spacebar to jump</p>
+    </div>--->
+
+    <div id="container">
+        <img src="images/background.png" id="background" class="background">
+        <img src="images/Sun.png" id="sun" class="background">
+        <img src="images/5.png" id="background_5" class="background">
+        <img src="images/4.png" id="background_4" class="background">
+        <img src="images/3.png" id="background_3" class="background">
+        <img src="images/2.png" id="background_2" class="background">
+        <img src="images/1.png" id="background_1" class="background">
+
+        <img src="images/joehorse3.png" id="cowboy" class="cowboy">
+        <img src="images/blue3.png" id="npc1" class="npc">
+
+        <img src="images/obstacle4.png" id="obstacle1" class="obstacle">
+        <img src="images/obstacle5.png" id="obstacle2" class="obstacle">
+        <img src="images/obstacle5.png" id="obstacle3" class="obstacle">
+
+        <img src="images/brown3.png" id="npc2" class="npc">
+        <img src="images/red3.png" id="npc3" class="npc">
+        <img src="images/green3.png" id="npc4" class="npc">
+
+
+
+        <div id="restart_div">
+            <button id="restart">
+                Restart
+                <!---<br> <small class="small_text">(press Enter)</small>--->
+            </button>
+        </div>
+        <div id="safezone_div">
+            <span id="safezone">Get ready!</span>
+        </div>
+        <div id="score_div">
+            Score: <span id="score">0</span>
+        </div>
+        <div id="highscore_div">
+            Highscore: <span id="highscoretxt">0</span>
+        </div>
+
+    </div>
+    <!---<div id="buttoncontainer">
+        <button id="leftBtn" class="buttons">LEFT</button>
+        <button id="rightBtn" class="buttons">RIGHT</button>
+        <button id="jumpBtn" class="buttons">JUMP</button>
+    </div>--->
+
+    <script>
+        Animate("cowboy", "images/joehorse2.png", "images/joehorse3.png", "images/joehorse2.png", "images/joehorse3.png");
+        Animate("npc1", "images/blue2.png", "images/blue3.png", "images/blue4.png", "images/blue5.png");
+        Animate("npc2", "images/brown3.png", "images/brown4.png", "images/brown5.png", "images/brown2.png");
+        Animate("npc3", "images/red4.png", "images/red5.png", "images/red2.png", "images/red3.png");
+        Animate("npc4", "images/green5.png", "images/green2.png", "images/green3.png", "images/green4.png");
+
+        function Animate(character, sprite1, sprite2, sprite3, sprite4) {
+            var character = document.getElementById(character);
+            var currentPos = 0;
+            var sprites = [sprite1, sprite2, sprite3, sprite4]
+
+            function nextSprite() {
+                if (++currentPos >= sprites.length) currentPos = 0;
+                character.src = sprites[currentPos];
+            }
+
+            setInterval(nextSprite, 220);
+        }
+    </script>
+
+
+</body>
+
+</html>
