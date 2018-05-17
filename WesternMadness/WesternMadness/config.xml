@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.myapp.mobile" version="2.25" xmlns="http://www.w3.org/ns/widgets">
   <name>Western Madness</name>
-  <description>This is my first game</description>
+  <description>Earn points by evading cacti and staying on the ground!</description>
   <author email="rens.coenaers@gmail.com">Rens Coenaers</author>
   <preference name="phonegap-version" value="cli-6.3.0" />
   <preference name="permissions" value="none" />

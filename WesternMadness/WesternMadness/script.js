@@ -33,15 +33,14 @@ $(function () {
 
     var score_counter = 1,
         jump_height = (cowboy_height / 3 * 2),
-        npc_speed = 9,
-        background_speed = 2,
-        obstacle_speed = 7,
+        npc_speed = 11,
+        background_speed = 4,
+        obstacle_speed = 9,
         currentscore = 0;
 
     var best = JSON.parse(localStorage.getItem('highscore'));
     localStorage.setItem("highscore", JSON.stringify(best));
     
-    var newBest = 0;
     
     var move_right = false,
         move_left = false,
