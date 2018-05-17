@@ -5,7 +5,8 @@ $(function () {
     //DECLARATIES
     var anim_id;
 
-    localStorage.setItem("highscore", JSON.stringify(0));
+
+
 
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
@@ -38,9 +39,9 @@ $(function () {
         background_speed = 2,
         obstacle_speed = 7,
         currentscore = 0;
-    
-    var best = JSON.parse(localStorage.getItem('highscore'));
 
+    var best = JSON.parse(localStorage.getItem('highscore'));
+    localStorage.setItem("highscore", JSON.stringify(best));
     var move_right = false,
         move_left = false,
         move_jump = false,
@@ -149,10 +150,9 @@ $(function () {
                 currentscore++;
             }
             if (score_counter % 100 == 0) {
-                background_speed += 0.5;
-                obstacle_speed += 0.5;
-                npc_speed += 0.5;
-                console.log("increase speed");
+                background_speed += 0.1;
+                obstacle_speed += 0.1;
+                npc_speed += 0.1;
             }
         }
 
@@ -168,11 +168,15 @@ $(function () {
 
 
     function highscoreUpdate() {
-        
+
         if (currentscore > best) {
             localStorage.setItem('highscore', JSON.stringify(currentscore));
-            best = currentscore;
+            currentscore = best;
             highscoretxt.text(best);
+            console.log(best);
+        } else {
+            highscoretxt.text(JSON.parse(localStorage.getItem('highscore')));
+            console.log(best);
         }
     }
 
