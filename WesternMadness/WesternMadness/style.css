@@ -9,8 +9,6 @@ body {
     width: 100%;
     margin: 0;
     overflow: hidden;
-    border: black;
-    border-style: solid;
 }
 
 .background {
