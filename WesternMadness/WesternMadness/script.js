@@ -22,7 +22,8 @@ $(function () {
         score = $('#score'),
         highscoretxt = $('#highscoretxt'),
         safezone = $('#safezone'),
-        musicmaestro = new sound("sounds/westernmadness8bit.mp3");
+        themesong = new sound("sounds/westernmadness8bit.mp3"),
+        gameoversong = new sound("sounds/gameover8bit.mp3");
 
     var container = $('#container'),
         container_width = parseInt(container.width()),
@@ -143,7 +144,7 @@ $(function () {
     //Spellus die elke tick herhaalt wordt.
     anim_id = requestAnimationFrame(repeat);
     safeZone();
-    musicmaestro.play();
+    themesong.play();
 
     function repeat() {
         if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3) && obs_visible == true) {
@@ -240,7 +241,8 @@ $(function () {
     function stop_the_game() {
         game_over = true;
         restart_div.slideDown();
-        restart_btn.focus();
+        themesong.stop();
+        gameoversong.play();
     }
 
     //Herstart het spel
