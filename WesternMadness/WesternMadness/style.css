@@ -1,12 +1,13 @@
 body {
     background-color: crimson;
-    font-family: sans-serif;
+    font-family: fantasy;
 }
 
 #container {
     position: absolute;
-    width: 100%;
     height: 100%;
+    width: 100%;
+    margin: 0;
     overflow: hidden;
     border: black;
     border-style: solid;
@@ -23,7 +24,7 @@ body {
 #sun {
     left: 0px;
     height: 100%;
-    width: 100%; 
+    width: 100%;
 }
 
 #background {
@@ -51,13 +52,13 @@ body {
 #background_5 {
     left: 0px;
 }
+
 #restart_div {
     position: absolute;
     height: auto;
     width: 100%;
-    background-color: #303030;
-    color: white;
-    font-family: sans-serif;
+    background-color: crimson;
+    
     text-align: center;
     display: none;
 }
@@ -67,7 +68,9 @@ body {
     padding: 25px;
     color: white;
     background-color: crimson;
-    font-size: 2em;
+    color: black;
+    font-family: fantasy;
+    font-size: 5em;
     height: 50%;
     margin: 25%;
 }
@@ -86,7 +89,7 @@ body {
 
 .cowboy {
     position: absolute;
-    width: 25;
+    width: 25%;
     height: 50%;
     bottom: 0;
 }
@@ -126,59 +129,54 @@ body {
 }
 
 #obstacle1 {
-    left: -50;
+    left: -50%;
     right: 0;
     bottom: 0;
 }
 
 #obstacle2 {
-    left: -50;
+    left: -50%;
     right: 0;
     bottom: 0;
 }
 
 #obstacle3 {
-    left: -50;
+    left: -50%;
     right: 0;
     bottom: 0;
 }
+
 .small_text {
     font-size: 1em;
 }
 
 #score_div {
     position: fixed;
-    margin-left: 0.5em;
+    display: block;
+    margin: 2%;
     min-width: 13%;
     max-width: 15%;
-    font-size: 1em;
-    background-color: white;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0);
     color: black;
+    
 }
 
 #safezone_div {
-    position: relative;
-    margin: auto;
+    position: absolute;
+    margin: 25%;
     width: 50%;
-    text-align: center;
     font-size: 4em;
     color: black;
-    display: inherit;
+    text-align: center;
 }
 
 #highscore_div {
     position: fixed;
-    margin-left: 0.5em;
-    margin-top: 3em;
-    min-width: 13%;
-    max-width: 15%;
-    font-size: 1em;
-    background-color: white;
-    color: black;
-}
-
-#help {
-    text-align: center;
-    color: white;
+    display: block;
     margin-top: 2%;
+    margin-left: 75%;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
 }

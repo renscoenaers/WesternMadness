@@ -3,7 +3,7 @@
     <name short="WestMad">Western Madness</name>
     <description>Earn points by evading cacti and staying on the ground!</description>
     <author email="rens.coenaers@gmail.com">Rens Coenaers</author>
-    <icon src="/images/obstacle4.png" platform="android" width="57" height="57" density="mdpi" />
+    <icon src="images/obstacle4.png" platform="android" width="57" height="57" density="mdpi" />
     <preference name="phonegap-version" value="cli-6.3.0" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="landscape" />

@@ -1,11 +1,9 @@
-$(function () {
+$(function() {
 
     'use strict';
 
     //DECLARATIES
     var anim_id;
-
-
     var cowboy = $('#cowboy'),
         obstacle1 = $('#obstacle1'),
         obstacle2 = $('#obstacle2'),
@@ -34,14 +32,13 @@ $(function () {
     var score_counter = 1,
         jump_height = (cowboy_height / 3 * 2),
         npc_speed = 11,
-        background_speed = 4,
+        background_speed = 3,
         obstacle_speed = 9,
         currentscore = 0;
 
     var best = JSON.parse(localStorage.getItem('highscore'));
     localStorage.setItem("highscore", JSON.stringify(best));
-    
-    
+
     var move_right = false,
         move_left = false,
         move_jump = false,
@@ -49,13 +46,11 @@ $(function () {
         game_over = false,
         obs_visible = false;
 
-
     //Spawnen van de NPC's
     npc1.css('left', parseInt(Math.random() * (container_width + npc_width)));
     npc2.css('left', parseInt(Math.random() * (container_width + npc_width)));
     npc3.css('left', parseInt(Math.random() * (container_width + npc_width)));
     npc4.css('left', parseInt(Math.random() * (container_width + npc_width)));
-
 
     //Detect if on mobile //not my code
     function detectmob() {
@@ -89,7 +84,6 @@ $(function () {
                 }
             }
         });
-
         $(document).on('keyup', function (e) {
             if (game_over === false) {
                 var key = e.keyCode;
@@ -105,13 +99,11 @@ $(function () {
                 }
             }
         });
-
     } else {
         document.getElementById("container").addEventListener("touchstart", jump);
     }
 
     function jump() {
-
         if (in_air == false) {
             in_air = true;
             up();
@@ -119,7 +111,6 @@ $(function () {
             down();
             in_air = false;
         }
-
     }
 
     function up() {
@@ -135,15 +126,14 @@ $(function () {
     safeZone();
 
     function repeat() {
-
-        if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3)) {
-            stop_the_game();
-            return;
+        if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3) && obs_visible == true) {
+            if (obs_visible == true) {
+                stop_the_game();
+                return;
+            }
         }
         score_counter++;
-
         highscoreUpdate();
-
         if (onGround() && obs_visible) {
             if (score_counter % 10 == 0) {
                 score.text(parseInt(score.text()) + 1);
@@ -155,7 +145,6 @@ $(function () {
                 npc_speed += 0.1;
             }
         }
-
         animate_npcs();
         animate_bgs();
         animate_obs();
@@ -164,19 +153,13 @@ $(function () {
     }
 
     //Highscores;
-
-
-
     function highscoreUpdate() {
-
         if (currentscore > best) {
             localStorage.setItem('highscore', JSON.stringify(currentscore));
             best = currentscore;
             highscoretxt.text(best);
-            console.log(best);
         } else {
             highscoretxt.text(JSON.parse(localStorage.getItem('highscore')));
-            console.log(best);
         }
     }
 
@@ -212,7 +195,6 @@ $(function () {
                 obstacle1.css('display', 'inherit');
                 obstacle2.css('display', 'inherit');
                 obstacle3.css('display', 'inherit');
-
             }, 4000);
         }
     }
@@ -288,7 +270,7 @@ $(function () {
         } else return false;
     }
 
-    //Collision detection 
+    //Collision detection - Niet zelf gecodeerd, wel aangepast
     function collision($div1, $div2) {
         var l1 = $div1.offset().left; //left
         var y1 = $div1.offset().top; //top
@@ -302,9 +284,10 @@ $(function () {
         var w2 = $div2.outerWidth(true);
         var b2 = y2 + h2;
         var r2 = l2 + w2; //right
-
-        if (b1 < y2 || y1 > b2 || r1 < l2 || l1 > r2) return false;
-        return true;
+        if (b1 < y2 || y1 > b2 || r1 < (l2 + 32) || l1 > (r2 - 32)) {
+            return false;
+        } else {
+            return true;
+        }
     }
-
 });
