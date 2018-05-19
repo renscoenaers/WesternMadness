@@ -22,8 +22,13 @@ $(function () {
         score = $('#score'),
         highscoretxt = $('#highscoretxt'),
         safezone = $('#safezone'),
-        themesong = new sound("sounds/westernmadness8bit.mp3"),
-        gameoversong = new sound("sounds/gameover8bit.mp3");
+        westernsong = new sound("sounds/westernmadness8bit.mp3"),
+        entersandman = new sound("sounds/entersandman8bit.mp3"),
+        duhast = new sound("sounds/duhast8bit.mp3"),
+        trooper = new sound("sounds/trooper8bit.mp3"),
+        shootingstars = new sound("sounds/shootingstars8bit.mp3"),
+        gameoversong = new sound("sounds/gameover8bit.mp3"),
+        song = new sound();
 
     var container = $('#container'),
         container_width = parseInt(container.width()),
@@ -71,7 +76,6 @@ $(function () {
         }
     }
 
-
     //Detect if on mobile //not my code
     function detectmob() {
         if (navigator.userAgent.match(/Android/i) ||
@@ -87,6 +91,7 @@ $(function () {
             return false;
         }
     }
+
     var mobile = detectmob();
 
     //Cowboy Controller
@@ -123,7 +128,15 @@ $(function () {
         document.getElementById("container").addEventListener("touchstart", jump);
     }
 
+
     function jump() {
+        function up() {
+            cowboy.css('bottom', parseInt(cowboy.css('bottom')) + jump_height);
+        }
+
+        function down() {
+            cowboy.css('bottom', parseInt(cowboy.css('bottom')) - jump_height);
+        }
         if (in_air == false) {
             in_air = true;
             up();
@@ -133,18 +146,40 @@ $(function () {
         }
     }
 
-    function up() {
-        cowboy.css('bottom', parseInt(cowboy.css('bottom')) + jump_height);
-    }
-
-    function down() {
-        cowboy.css('bottom', parseInt(cowboy.css('bottom')) - jump_height);
-    }
-
     //Spellus die elke tick herhaalt wordt.
     anim_id = requestAnimationFrame(repeat);
     safeZone();
-    themesong.play();
+    playsong();
+
+    function playsong() {
+        westernsong.play();
+        song = westernsong;
+        var i = Math.floor(Math.random() * 10);
+        switch (i) {
+            case 1:
+                song.stop();
+                duhast.play();
+                song = duhast;
+                break;
+            case 2:
+                song.stop();
+                entersandman.play();
+                song = entersandman;
+                break;
+            case 3:
+                song.stop();
+                trooper.play();
+                song = trooper;
+                break;
+            case 4:
+                song.stop();
+                shootingstars.play();
+                song = shootingstars;
+                break;
+        }
+    }
+
+
 
     function repeat() {
         if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3) && obs_visible == true) {
@@ -241,7 +276,7 @@ $(function () {
     function stop_the_game() {
         game_over = true;
         restart_div.slideDown();
-        themesong.stop();
+        song.stop();
         gameoversong.play();
     }
 
