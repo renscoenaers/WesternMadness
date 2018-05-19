@@ -1,6 +1,6 @@
 body {
-    background-color: crimson;
-    font-family: fantasy;
+    font-family: fantasy, monospace;
+    margin: 0;
 }
 
 #container {
@@ -16,7 +16,6 @@ body {
     height: 200%;
     width: 200%;
     bottom: 0;
-    overflow: scroll;
 }
 
 #sun {
@@ -56,7 +55,6 @@ body {
     height: auto;
     width: 100%;
     background-color: crimson;
-    
     text-align: center;
     display: none;
 }

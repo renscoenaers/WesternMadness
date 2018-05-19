@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     'use strict';
 
@@ -21,7 +21,8 @@ $(function() {
         restart_btn = $('#restart'),
         score = $('#score'),
         highscoretxt = $('#highscoretxt'),
-        safezone = $('#safezone');
+        safezone = $('#safezone'),
+        musicmaestro = new sound("sounds/westernmadness8bit.mp3");
 
     var container = $('#container'),
         container_width = parseInt(container.width()),
@@ -31,9 +32,9 @@ $(function() {
 
     var score_counter = 1,
         jump_height = (cowboy_height / 3 * 2),
-        npc_speed = 11,
-        background_speed = 3,
-        obstacle_speed = 9,
+        npc_speed = 14,
+        background_speed = 4,
+        obstacle_speed = 12,
         currentscore = 0;
 
     var best = JSON.parse(localStorage.getItem('highscore'));
@@ -51,6 +52,24 @@ $(function() {
     npc2.css('left', parseInt(Math.random() * (container_width + npc_width)));
     npc3.css('left', parseInt(Math.random() * (container_width + npc_width)));
     npc4.css('left', parseInt(Math.random() * (container_width + npc_width)));
+
+
+    //Sound functie van op https://www.w3schools.com/graphics/game_sound.asp
+    function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function () {
+            this.sound.play();
+        }
+        this.stop = function () {
+            this.sound.pause();
+        }
+    }
+
 
     //Detect if on mobile //not my code
     function detectmob() {
@@ -124,6 +143,7 @@ $(function() {
     //Spellus die elke tick herhaalt wordt.
     anim_id = requestAnimationFrame(repeat);
     safeZone();
+    musicmaestro.play();
 
     function repeat() {
         if (collision(cowboy, obstacle1) || collision(cowboy, obstacle2) || collision(cowboy, obstacle3) && obs_visible == true) {
