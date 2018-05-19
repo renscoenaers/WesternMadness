@@ -76,6 +76,14 @@ $(function () {
         }
     }
 
+    //pauzeren van muziek wanneer de app gesloten wordt:
+    document.addEventListener('pause', function () {
+        song.stop();
+    });
+    document.addEventListener('resume', function () {
+        song.play();
+    });
+
     //Detect if on mobile //not my code
     function detectmob() {
         if (navigator.userAgent.match(/Android/i) ||
