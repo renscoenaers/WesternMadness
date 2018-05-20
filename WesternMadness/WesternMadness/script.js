@@ -316,7 +316,7 @@ $(function () {
         npc.css('left', npc_current_left - npc_speed);
     }
 
-    //Bewegen van dee obstakels
+    //Bewegen van de obstakels
     function obstacle_left(obstacle) {
         var obstacle_current_left = parseInt(obstacle.css('left'));
         var distance = container_width + obstacle_width;
