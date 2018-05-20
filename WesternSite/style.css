@@ -1,0 +1,178 @@
+body {
+    font-family: fantasy, monospace;
+    margin: 0;
+}
+
+#container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    height: 200%;
+    width: 200%;
+    bottom: 0;
+}
+
+#sun {
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+#background {
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+#background_1 {
+    left: 0px;
+}
+
+#background_2 {
+    left: 0px;
+}
+
+#background_3 {
+    left: 0px;
+}
+
+#background_4 {
+    left: 0px;
+}
+
+#background_5 {
+    left: 0px;
+}
+
+#restart_div {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    background-color: crimson;
+    text-align: center;
+    display: none;
+}
+
+#restart {
+    border: none;
+    padding: 25px;
+    color: white;
+    background-color: crimson;
+    color: black;
+    font-family: fantasy;
+    font-size: 5em;
+    height: 50%;
+    margin: 25%;
+}
+
+#leftBtn {
+    left: 0;
+}
+
+#rightBtn {
+    left: 80%;
+}
+
+#jumpBtn {
+    left: 40%;
+}
+
+.cowboy {
+    position: absolute;
+    width: 25%;
+    height: 50%;
+    bottom: 0;
+}
+
+#cowboy {
+    left: 5em;
+}
+
+.npc {
+    position: absolute;
+    width: 7%;
+    height: 25%;
+    bottom: 0;
+}
+
+#npc1 {
+    left: 0;
+}
+
+#npc2 {
+    left: 0;
+}
+
+#npc3 {
+    left: 0;
+}
+
+#npc4 {
+    left: 0;
+}
+
+.obstacle {
+    position: absolute;
+    width: 15%;
+    height: 30%;
+    display: none;
+}
+
+#obstacle1 {
+    left: -50%;
+    right: 0;
+    bottom: 0;
+}
+
+#obstacle2 {
+    left: -50%;
+    right: 0;
+    bottom: 0;
+}
+
+#obstacle3 {
+    left: -50%;
+    right: 0;
+    bottom: 0;
+}
+
+.small_text {
+    font-size: 1em;
+}
+
+#score_div {
+    position: fixed;
+    display: block;
+    margin: 2%;
+    min-width: 13%;
+    max-width: 15%;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    
+}
+
+#safezone_div {
+    position: absolute;
+    margin: 25%;
+    width: 50%;
+    font-size: 4em;
+    color: black;
+    text-align: center;
+}
+
+#highscore_div {
+    position: fixed;
+    display: block;
+    margin-top: 2%;
+    margin-left: 75%;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+}
